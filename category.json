@@ -1,0 +1,28 @@
+{
+    "Credit": {
+        "Income": {
+            "Payroll": [],
+            "Intrest Earned": [],
+            "Rental Income": []
+        },
+        "Family & Friends": {},
+        "Uncategorized": {}
+    },
+    "Debit": {
+        "Entertainment": {},
+        "Family & Friends": {},
+        "Education": {},
+        "Financial": {},
+        "Food & Dining": {},
+        "Health & Fitness": {},
+        "Home": {},
+        "Investment": {},
+        "Shopping": {},
+        "Travel & Transport": {},
+        "Transfer": {
+            "Credit Card Payment": [],
+            "Self Transfer": []
+        },
+        "Uncategorized": {},
+    }
+}
