@@ -1,28 +1,36 @@
 {
     "Credit": {
         "Income": {
-            "Payroll": [],
-            "Intrest Earned": [],
-            "Rental Income": []
+            "Payroll": ["salary", "payroll", "monthly wage", "income","american exp"],
+            "Interest Earned": ["interest credit", "savings interest", "bank interest"],
+            "Rental Income": ["rental income", "rent received"],
+            "Investment Returns":["mutual","nextbillion","ugro"]
         },
-        "Family & Friends": {},
-        "Uncategorized": {}
+        "Family & Friends": [],
+        "Transfer": {
+            "Refund": ["refund","settlemet"],
+            "Self Transfer": ["self transfer", "own account","transfer to self", "wallet transfer","apnik"]
+        },
+        "Uncategorized": []
     },
     "Debit": {
-        "Entertainment": {},
-        "Family & Friends": {},
-        "Education": {},
-        "Financial": {},
-        "Food & Dining": {},
-        "Health & Fitness": {},
-        "Home": {},
-        "Investment": {},
-        "Shopping": {},
-        "Travel & Transport": {},
+        # "Business Expenses":["shiprocket"],
+        "Entertainment": ["movie", "cinema", "netflix", "prime", "entertainment", "spotify", "multiplex", "concert", "show"],
+        "Education": ["school", "tuition", "education", "course", "exam fee", "training", "college", "university"],
+        "Financial": ["insurance", "loan", "emi", "credit card payment", "tax"],
+        "Food & Dining": ["swiggy", "zomato", "food", "restaurant", "cafe", "coffee", "juice", "grocery", "pizza", "ice cream", "bar", "takeout","lunch", "chocolate"],
+        "Health & Fitness": ["hospital", "doctor", "pharmacy", "medicines", "clinic", "dentist", "gym", "fitness", "health", "yoga", "meditation", "personal trainer"],
+        "Home": ["rent", "utilities", "electricity", "water bill", "maintenance", "furniture", "home improvement", "mortgage"],
+        "Investment": ["groww","investment", "mutual fund", "stocks", "shares", "bonds", "crypto", "real estate","nextbillionT"],
+        "Shopping": ["amazon", "flipkart", "shopping", "mall", "clothing", "electronics", "furniture", "accessories", "shoes", "makeup", "gifts"],
+        "Travel & Transport": ["uber", "ola", "bus", "flight", "train", "taxi", "cab", "metro", "airline", "rental car", "ride", "ticket"],
+        "Cash Withdrawal":[ "atm", "cash withdrawal","cheque"],
+        "Rent":["rent"],
         "Transfer": {
-            "Credit Card Payment": [],
-            "Self Transfer": []
+            "Credit Card Payment": ["credit card payment", "cc payment", "visa", "mastercard"],
+            "Self Transfer": ["self transfer", "own account","transfer to self", "wallet transfer","apnik"]
         },
-        "Uncategorized": {},
+        "Family & Friends": ["ruchika","mukesh","ruchika.mk.jain1@ybl"],
+        "Uncategorized": []
     }
 }
