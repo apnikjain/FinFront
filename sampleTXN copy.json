@@ -1,0 +1,14 @@
+[
+    
+    {
+        "_type": "DEBIT",
+        "_mode": "UPI",
+        "_amount": "103.25",
+        "_currentBalance": "73.44",
+        "_transactionTimestamp": "2024-12-08T00:00:00.000+00:00",
+        "_valueDate": "2024-12-08",
+        "_txnId": "",
+        "_narration": "UPI DEBIT UPI/434313574920/UPI XXXXX     /paytm-13572266qswf@ptybl YESB0PTMUPI/Magicpin",
+        "_reference": ""
+    }
+]
