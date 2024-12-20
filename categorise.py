@@ -1,50 +1,16 @@
 #In[]
 import json
 import re
+from string_fuzzy_matching import fuzzy_match
 
 # Enhanced categories with specific keywords
-categories = {
-    "Credit": {
-        "Income": {
-            "Payroll": ["salary", "payroll", "monthly wage", "income","american exp"],
-            "Interest Earned": ["interest credit", "savings interest", "bank interest"],
-            "Rental Income": ["rental income", "rent received"],
-            "Investment Returns":["mutual","nextbillion","ugro"]
-        },
-        "Family & Friends": [],
-        "Transfer": {
-            "Refund": ["refund","settlemet"],
-            "Self Transfer": ["self transfer", "own account","transfer to self", "wallet transfer","apnik"]
-        },
-        "Uncategorized": []
-    },
-    "Debit": {
-        # "Business Expenses":["shiprocket"],
-        "Entertainment": ["movie", "cinema", "netflix", "prime", "entertainment", "spotify", "multiplex", "concert", "show"],
-        "Education": ["school", "tuition", "education", "course", "exam fee", "training", "college", "university"],
-        "Financial": ["insurance", "loan", "emi", "credit card payment", "tax"],
-        "Food & Dining": ["swiggy", "zomato", "food", "restaurant", "cafe", "coffee", "juice", "grocery", "pizza", "ice cream", "bar", "takeout","lunch", "chocolate"],
-        "Health & Fitness": ["hospital", "doctor", "pharmacy", "medicines", "clinic", "dentist", "gym", "fitness", "health", "yoga", "meditation", "personal trainer"],
-        "Home": ["rent", "utilities", "electricity", "water bill", "maintenance", "furniture", "home improvement", "mortgage"],
-        "Investment": ["groww","investment", "mutual fund", "stocks", "shares", "bonds", "crypto", "real estate","nextbillionT"],
-        "Shopping": ["amazon", "flipkart", "shopping", "mall", "clothing", "electronics", "furniture", "accessories", "shoes", "makeup", "gifts"],
-        "Travel & Transport": ["uber", "ola", "bus", "flight", "train", "taxi", "cab", "metro", "airline", "rental car", "ride", "ticket"],
-        "Cash Withdrawal":[ "atm", "cash withdrawal","cheque"],
-        "Rent":["rent"],
-        "Transfer": {
-            "Credit Card Payment": ["credit card payment", "cc payment", "visa", "mastercard"],
-            "Self Transfer": ["self transfer", "own account","transfer to self", "wallet transfer","apnik"]
-        },
-        "Family & Friends": ["ruchika","mukesh","ruchika.mk.jain1@ybl"],
-        "Uncategorized": []
-    }
-}
+
+with open("category.json") as json_file:
+    categories = json.load(json_file)
 
 # Function to classify transactions based on narration keywords
 def categorization_category_based_on_narration(narration):
     return
-
-
 
 # Function to extract insights
 def extract_transaction_insights(narration):
@@ -59,6 +25,8 @@ def extract_transaction_insights(narration):
         insights['Transaction Type'] = 'TRANSFER'
     elif 'BOOK DEPOSIT' in narration:
         insights['Transaction Type'] = 'BOOK DEPOSIT'
+    else:
+        insights['Transaction Type'] = 'UNCATEGORIZED'
 
     # Extract UPI reference ID
     upi_ref_match = re.search(r'UPI/(\d+)', narration)
@@ -96,41 +64,42 @@ def extract_transaction_insights(narration):
 # Function to classify transactions based on narration keywords
 def classify_transaction(transaction, categories):
     narration = transaction["_narration"].lower()  # Convert to lowercase for matching
-    txn_type = transaction["_type"]  # Credit or Debit
-    
-    if txn_type == "CREDIT":
-        for category, subcategories in categories["Credit"].items():
-            if isinstance(subcategories, dict):
-                for subcategory, keywords in subcategories.items():
-                    for keyword in keywords:    
-                        pattern = re.escape(keyword)
-                        if re.search(pattern,narration,re.IGNORECASE):
-                            return f"Credit -> {category} -> {subcategory}"
-            else:
-                if any(keyword in narration for keyword in subcategories):
-                    return f"Credit -> {category}"
-        return "Credit -> Uncategorized"
-
-    elif txn_type == "DEBIT":
-        for category, subcategories in categories["Debit"].items():
-            if isinstance(subcategories, dict):
-                for subcategory, keywords in subcategories.items():
-                    for keyword in keywords:    
-                        pattern = re.escape(keyword)
-                        if re.search(pattern,narration,re.IGNORECASE):
-                            return f"Debit -> {category} -> {subcategory}"
-            else:
-                if any(keyword in narration for keyword in subcategories):
-                    return f"Debit -> {category}"
-        return "Debit -> Uncategorized"
-    
-    return "Uncategorized"
+    txn_type = transaction["_type"]  # CREDIT or DEBIT
+    best_match = None
+    similarity_max = 0
+    fuzzy_string = None
+    for category, subcategories in categories[txn_type].items():
+        if isinstance(subcategories, dict):
+            for subcategory, keywords in subcategories.items():
+                for keyword in keywords:    
+                    pattern = re.escape(keyword)
+                    if re.search(pattern,narration,re.IGNORECASE):
+                        return f"{txn_type} -> {category} -> {subcategory}"
+                    else:
+                        best_match, similarity = fuzzy_match(pattern, narration)
+                        if similarity > similarity_max:
+                            similarity_max = similarity
+                            fuzzy_string = f"{txn_type} -> {category} -> {subcategory}"              
+        else:
+            for keyword in subcategories:
+                pattern = re.escape(keyword)
+                if keyword in narration :
+                    return f"{txn_type} -> {category}"
+                else:
+                    best_match, similarity = fuzzy_match(pattern, narration)
+                    if similarity > similarity_max:
+                        similarity_max = similarity
+                        fuzzy_string = f"{txn_type} -> {category}"
+    if similarity_max>0:
+        return fuzzy_string
+    return f"{txn_type} -> Uncategorized"
 
 # Function to process all transactions in the dataset and save in the required format
 def process_transactions(transactions, categories):
     categorized_transactions = []
     for txn in transactions:
         category = classify_transaction(txn, categories)
+        print(category)
         insights = extract_transaction_insights(txn["_narration"])
         txn_result = {
             "amount": txn["_amount"],
@@ -163,7 +132,7 @@ if __name__ == "__main__":
     print(f"Categorized transactions have been saved to 'categorized_transactions.json'.")
 
     desc = {
-    "Credit": {
+    "CREDIT": {
         "Income": {
             "Payroll": {
                 "narration":[],
@@ -201,7 +170,7 @@ if __name__ == "__main__":
                 "total":0
                 },
     },
-    "Debit": {
+    "DEBIT": {
         "Entertainment": {
                 "narration":[],
                 "total":0
