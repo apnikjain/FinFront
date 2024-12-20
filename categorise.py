@@ -44,7 +44,7 @@ def extract_transaction_insights(narration):
         insights['Phone Number (Last 5 Digits)'] = phone_match.group(1)
 
     # Extract UPI ID or email
-    upi_email_match = re.search(r'[\w\.-]+@[\w\.-]+', narration)
+    upi_email_match = re.search(r'[\w\.-]+@', narration)
     if upi_email_match:
         insights['UPI ID or Email'] = upi_email_match.group(0)
 
@@ -65,7 +65,6 @@ def extract_transaction_insights(narration):
 def classify_transaction(transaction, categories):
     narration = transaction["_narration"].lower()  # Convert to lowercase for matching
     txn_type = transaction["_type"]  # CREDIT or DEBIT
-    best_match = None
     similarity_max = 0
     fuzzy_string = None
     for category, subcategories in categories[txn_type].items():
