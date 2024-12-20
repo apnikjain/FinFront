@@ -44,9 +44,10 @@ def extract_transaction_insights(narration):
         insights['Phone Number (Last 5 Digits)'] = phone_match.group(1)
 
     # Extract UPI ID or email
-    upi_email_match = re.search(r'[\w\.-]+@', narration)
+    upi_email_match = re.search(r'([\w\.-]+)@([\w\.-]+)?', narration)
     if upi_email_match:
-        insights['UPI ID or Email'] = upi_email_match.group(0)
+        insights['UPI ID or Email'] = upi_email_match.group(1)
+        insights['UPI or Email domain'] = upi_email_match.group(2)
 
     # Extract bank IFSC code
     ifsc_match = re.search(r'\b[A-Z]{4}0[A-Z0-9]{6}\b', narration)
