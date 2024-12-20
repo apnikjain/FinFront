@@ -1,5 +1,5 @@
 {
-    "Credit": {
+    "CREDIT": {
         "Income": {
             "Payroll": ["salary", "payroll", "monthly wage", "income","american exp"],
             "Interest Earned": ["interest credit", "savings interest", "bank interest"],
@@ -13,8 +13,7 @@
         },
         "Uncategorized": []
     },
-    "Debit": {
-        // "Business Expenses":["shiprocket"],
+    "DEBIT": {
         "Entertainment": ["movie", "cinema", "netflix", "prime", "entertainment", "spotify", "multiplex", "concert", "show","music","hotstar", "jio", "sony","showtime","bookmyshow","sortmyscene"],
         "Education": ["school", "tuition", "education", "course", "exam fee", "training", "college", "university"],
         "Financial": ["insurance", "loan", "emi", "credit card payment", "tax","tataaig","lombard"],
@@ -25,12 +24,14 @@
         "Shopping": ["amazon", "flipkart", "shopping", "mall", "clothing", "electronics", "furniture", "accessories", "shoes", "makeup", "gifts","amzn","myntra","zara","hnm","ekart"],
         "Travel & Transport": ["uber", "ola", "bus", "flight", "train", "taxi", "cab", "metro", "airline", "rental car", "ride", "ticket","rapido", "indrive", "irctc",  "airplane", "indigo", "vistara", "blusmart", "zoomcar","airbnb"],
         "Cash Withdrawal":[ "atm", "cash withdrawal","cheque"],
-        "Rent":["rent"],
         "Transfer": {
             "Credit Card Payment": ["credit card payment", "cc payment", "visa", "mastercard"],
             "Self Transfer": ["self transfer", "own account","transfer to self", "wallet transfer","apnik"]
         },
         "Family & Friends": ["ruchika","mukesh","ruchika.mk.jain1@ybl"],
+        "Uncategorized": []
+    },
+    "UNCATEGORIZED" : {
         "Uncategorized": []
     }
 }

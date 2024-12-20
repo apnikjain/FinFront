@@ -1,0 +1,5 @@
+dump.py
+output.json
+desc.json
+categorized_transactions.json
+*.pyc
